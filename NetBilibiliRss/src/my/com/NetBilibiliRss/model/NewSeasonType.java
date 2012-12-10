@@ -10,12 +10,12 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 /**
- * 用于处理获取到的页面数据的model
+ * 用于储存季度、季度名、并设定想要获取的相关季度动画的动画名的model
  * @author 俊伟
  *
  */
-@PersistenceCapable
-public class BilibiliRss {
+@SuppressWarnings("unused")
+public class NewSeasonType {
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key key;
@@ -24,13 +24,7 @@ public class BilibiliRss {
 	private User user;
 	
 	@Persistent
-	private String url;
-	
-	@Persistent
 	private String name;
-	
-	@Persistent
-	private String titleType;
 	
 	@Persistent
 	private String season;
@@ -38,24 +32,16 @@ public class BilibiliRss {
 	@Persistent
 	private Date createDate;
 	
-	@Persistent
-	private boolean isWatch;
-	
-	//构造方法
-	public BilibiliRss(){
+	public NewSeasonType(){
 		
 	}
-	
-	public BilibiliRss(User user, String url, String name,
-			String titleType, String season, Date createDate) {
+
+	public NewSeasonType(User user, String name, String season, Date createDate) {
 		super();
 		this.user = user;
-		this.url = url;
 		this.name = name;
-		this.titleType = titleType;
 		this.season = season;
 		this.createDate = createDate;
-		isWatch=false;
 	}
 
 	public Key getKey() {
@@ -74,28 +60,12 @@ public class BilibiliRss {
 		this.user = user;
 	}
 
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getTitleType() {
-		return titleType;
-	}
-
-	public void setTitleType(String titleType) {
-		this.titleType = titleType;
 	}
 
 	public String getSeason() {
@@ -113,12 +83,5 @@ public class BilibiliRss {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-
-	public boolean isWatch() {
-		return isWatch;
-	}
-
-	public void setWatch(boolean isWatch) {
-		this.isWatch = isWatch;
-	}
+	
 }
