@@ -1,13 +1,37 @@
 package my.com.NetBilibiliRss.server;
 
+import java.util.ArrayList;
+
+import my.com.NetBilibiliRss.server.model.TempBilibiliRss;
+
 import org.xml.sax.Attributes;
-import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
-public class MyContentHandler implements ContentHandler {
+public class MyContentHandler extends DefaultHandler {
 
     private StringBuffer buf;
+    
+    private boolean hasRecord=false;
+    
+    private ArrayList<TempBilibiliRss> ret=new ArrayList<TempBilibiliRss>();
+    
+    private TempBilibiliRss tempbilibilirss;
+    
+    private final static String item="item";
+    
+    private final static String link = "link";
+    
+    private final static String title = "title";
+    
+    private final static String author = "author";
+    
+    private final static String description = "description";
+    
+    private final static String comments = "comments";
+    
+    private final static String pubDate = "pubDate";
 
     public void setDocumentLocator( Locator locator ) {
     }
@@ -36,6 +60,12 @@ public class MyContentHandler implements ContentHandler {
     public void startElement( String namespaceURI, String localName,
                                   String fullName, Attributes attributes )
                           throws SAXException {
+    	if(fullName.equals(item)){
+    		hasRecord=true;
+    		tempbilibilirss=new TempBilibiliRss();
+    	}
+    	
+    	
         System.out.println("\n 元素: " + "["+fullName+"]" +" 开始解析!");
         // 打印出属性信息
         for ( int i = 0; i < attributes.getLength(); i++ ) {
@@ -50,11 +80,31 @@ public class MyContentHandler implements ContentHandler {
         //打印出非空的元素内容并将StringBuffer清空                 
       String nullStr="";
         if (!buf.toString().trim().equals(nullStr)){
-           System.out.println("\t内容是: " + buf.toString().trim());
+        	if(hasRecord){
+        		if(tempbilibilirss==null){
+            		tempbilibilirss=new TempBilibiliRss();
+        		}
+        		if(fullName.equals(title)){
+        			tempbilibilirss.setTitle(buf.toString());
+        		}else if(fullName.equals(link)){
+        			tempbilibilirss.setLink(buf.toString());
+        		}else if(fullName.equals(author)){
+        			tempbilibilirss.setAuthor(buf.toString());
+        		}else if(fullName.equals(description)){
+        			tempbilibilirss.setDescription(buf.toString());
+        		}else if(fullName.equals(comments)){
+        			tempbilibilirss.setComments(buf.toString());
+        		}else if(fullName.equals(pubDate)){
+        			tempbilibilirss.setPubDate(buf.toString());
+        		}
+        	}
         }
+        if(fullName.equals(item)){
+			ret.add(tempbilibilirss);
+			hasRecord=false;
+		}
         buf.setLength(0);
-        //打印元素解析结束信息
-        System.out.println("元素: "+"["+fullName+"]"+" 解析结束!");             
+        //打印元素解析结束信息         
     }
 
     public void characters( char[] chars, int start, int length )
@@ -69,4 +119,12 @@ public class MyContentHandler implements ContentHandler {
 
     public void skippedEntity( String name ) throws SAXException {
     }
+
+	public ArrayList<TempBilibiliRss> getRet() {
+		return ret;
+	}
+
+	public void setRet(ArrayList<TempBilibiliRss> ret) {
+		this.ret = ret;
+	}
 }

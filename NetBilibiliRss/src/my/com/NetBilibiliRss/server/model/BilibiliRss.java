@@ -1,4 +1,4 @@
-package my.com.NetBilibiliRss.model;
+package my.com.NetBilibiliRss.server.model;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.users.User;
@@ -21,42 +21,49 @@ public class BilibiliRss {
 	private Key key;
 	
 	@Persistent
-	private User user;
+	private NewSeasonType newseason; //所属季
 	
 	@Persistent
-	private String url;
+	private User user;//用户
 	
 	@Persistent
-	private String name;
+	private String url;//链接
 	
 	@Persistent
-	private String titleType;
+	private String name;//名称
 	
 	@Persistent
-	private String season;
+	private String description;//注释
 	
 	@Persistent
-	private Date createDate;
+	private String titleType;//所属动画名
 	
 	@Persistent
-	private boolean isWatch;
+	private Date createDate;//创建日期
+	
+	@Persistent
+	private boolean isWatch;//是否观看
 	
 	//构造方法
 	public BilibiliRss(){
 		
 	}
 	
-	public BilibiliRss(User user, String url, String name,
-			String titleType, String season, Date createDate) {
+
+	public BilibiliRss(NewSeasonType newseason, User user, String url,
+			String name, String description, String titleType, String season,
+			Date createDate) {
 		super();
+		this.newseason = newseason;
 		this.user = user;
 		this.url = url;
 		this.name = name;
+		this.description = description;
 		this.titleType = titleType;
-		this.season = season;
 		this.createDate = createDate;
-		isWatch=false;
+		this.isWatch = false;
 	}
+
 
 	public Key getKey() {
 		return key;
@@ -64,6 +71,14 @@ public class BilibiliRss {
 
 	public void setKey(Key key) {
 		this.key = key;
+	}
+
+	public NewSeasonType getNewseason() {
+		return newseason;
+	}
+
+	public void setNewseason(NewSeasonType newseason) {
+		this.newseason = newseason;
 	}
 
 	public User getUser() {
@@ -98,14 +113,14 @@ public class BilibiliRss {
 		this.titleType = titleType;
 	}
 
-	public String getSeason() {
-		return season;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setSeason(String season) {
-		this.season = season;
+	public void setDescription(String description) {
+		this.description = description;
 	}
-
+	
 	public Date getCreateDate() {
 		return createDate;
 	}
