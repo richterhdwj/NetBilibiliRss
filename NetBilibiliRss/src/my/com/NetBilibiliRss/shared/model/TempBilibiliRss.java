@@ -1,4 +1,4 @@
-package my.com.NetBilibiliRss.server.model;
+package my.com.NetBilibiliRss.shared.model;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;

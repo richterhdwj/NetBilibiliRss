@@ -9,7 +9,7 @@ import javax.jdo.Query;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import my.com.NetBilibiliRss.server.model.TempBilibiliRss;
+import my.com.NetBilibiliRss.shared.model.TempBilibiliRss;
 
 /**
  * 这里是自动获取Rss页面后，进行分析后并进行相应储存的处理机构。
@@ -62,6 +62,8 @@ public class GetNetBilibiliRss {
 			}
 			pm.makePersistentAll(saveList);
 			pm.close();
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("保存出错了");

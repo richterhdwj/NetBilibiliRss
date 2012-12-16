@@ -1,4 +1,4 @@
-package my.com.NetBilibiliRss.client;
+package my.com.NetBilibiliRss.client.interFace;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;

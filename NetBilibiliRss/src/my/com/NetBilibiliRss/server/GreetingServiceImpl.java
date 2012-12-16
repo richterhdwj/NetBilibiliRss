@@ -1,7 +1,16 @@
 package my.com.NetBilibiliRss.server;
 
-import my.com.NetBilibiliRss.client.GreetingService;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import my.com.NetBilibiliRss.client.interFace.GreetingService;
 import my.com.NetBilibiliRss.shared.FieldVerifier;
+
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
@@ -52,5 +61,18 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		}
 		return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
 				.replaceAll(">", "&gt;");
+	}
+	
+	public void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException{
+        UserService userService = UserServiceFactory.getUserService();
+        User user = userService.getCurrentUser();
+
+        if (user == null) {
+        	System.out.println("没有登录");
+            resp.sendRedirect(userService.createLoginURL(req.getRequestURI()));
+        }else{
+        	System.out.println("已经登录");
+        }
 	}
 }

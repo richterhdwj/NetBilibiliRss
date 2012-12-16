@@ -1,5 +1,11 @@
 package my.com.NetBilibiliRss.client;
 
+import java.util.List;
+
+import my.com.NetBilibiliRss.client.interFace.BilibiliRssServers;
+import my.com.NetBilibiliRss.client.interFace.BilibiliRssServersAsync;
+import my.com.NetBilibiliRss.client.interFace.GreetingService;
+import my.com.NetBilibiliRss.client.interFace.GreetingServiceAsync;
 import my.com.NetBilibiliRss.shared.FieldVerifier;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -12,9 +18,13 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -35,29 +45,71 @@ public class NetBilibiliRss implements EntryPoint {
 	 */
 	private final GreetingServiceAsync greetingService = GWT
 			.create(GreetingService.class);
+	
+	private final BilibiliRssServersAsync bilibiliRssServers = GWT
+			.create(BilibiliRssServers.class);
 
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
+		//页面加载后分为一个tab面
+		TabPanel tabPanel = new TabPanel();
 		
+		tabPanel.setWidth("100%");
+		tabPanel.setHeight("80%");
+		/**
+		 * 第一个tab面中包含一个flowPanel,主要展现前15个未标记为看过的番
+		 */
+		final FlowPanel firstPanel=new FlowPanel();
+		firstPanel.setSize("100%", "100%");
+		
+		Label messageLabel=new Label("暂时没有什么咚咚哦~");
+		
+		firstPanel.add(messageLabel);
+
+		tabPanel.add(firstPanel, "未看");
+		/**
+		 * 第二个tab面中包含两三个listbox，
+		 * 展现为：
+		 *   季度|番组|番组对应番（可点击跳转至相关页面）
+		 * 
+		 */
+		final HorizontalPanel secondPage=new HorizontalPanel();
 		final Button sendButton = new Button("Send");
 		final TextBox nameField = new TextBox();
 		nameField.setText("GWT User");
+		
+		nameField.setFocus(true);
+		nameField.selectAll();
+		
 		final Label errorLabel = new Label();
 
 		// We can add style names to widgets
 		sendButton.addStyleName("sendButton");
+		
+		secondPage.setSpacing(10);
+
+		secondPage.add(nameField);
+		secondPage.add(sendButton);
+		
+		tabPanel.add(secondPage, "番组列表");
+		
+		/**
+		 * 第三个tab面包含一个listbox和一个table面，主要用于展现和输入保存季组和季组之下的番组
+		 */
+
+		final HorizontalPanel thirdPage=new HorizontalPanel();
+
+		tabPanel.add(thirdPage, "设定");
+		//默认选择第一个tab
+		tabPanel.selectTab(0);
 
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
-		RootPanel.get("nameFieldContainer").add(nameField);
-		RootPanel.get("sendButtonContainer").add(sendButton);
+		RootPanel.get("allFieldContainer").add(tabPanel);
 		RootPanel.get("errorLabelContainer").add(errorLabel);
 
-		// Focus the cursor on the name field when the app loads
-		nameField.setFocus(true);
-		nameField.selectAll();
 
 		// Create the popup dialog box
 		final DialogBox dialogBox = new DialogBox();
@@ -148,7 +200,13 @@ public class NetBilibiliRss implements EntryPoint {
 
 		// Add a handler to send the name to the server
 		MyHandler handler = new MyHandler();
-		sendButton.addClickHandler(handler);
+		sendButton.addClickHandler(new ClickHandler(){
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		nameField.addKeyUpHandler(handler);
 	}
 }

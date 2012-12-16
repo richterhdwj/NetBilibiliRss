@@ -1,4 +1,4 @@
-package my.com.NetBilibiliRss.server.model;
+package my.com.NetBilibiliRss.shared.model;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.users.User;

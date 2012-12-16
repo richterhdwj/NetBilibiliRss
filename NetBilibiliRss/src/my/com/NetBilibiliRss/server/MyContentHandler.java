@@ -2,7 +2,7 @@ package my.com.NetBilibiliRss.server;
 
 import java.util.ArrayList;
 
-import my.com.NetBilibiliRss.server.model.TempBilibiliRss;
+import my.com.NetBilibiliRss.shared.model.TempBilibiliRss;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;

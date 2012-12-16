@@ -11,9 +11,19 @@
     <url-pattern>/netbilibilirss/greet</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>bilibilirssServlet</servlet-name>
+    <servlet-class>my.com.NetBilibiliRss.server.BilibiliRssServersImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>bilibilirssServlet</servlet-name>
+    <url-pattern>/netbilibilirss/bilibilirss</url-pattern>
+  </servlet-mapping>
+  
   <!-- Default page to serve -->
   <welcome-file-list>
-    <welcome-file>NetBilibiliRss.html</welcome-file>
+    <welcome-file>NetBilibiliRss.jsp</welcome-file>
   </welcome-file-list>
 
   <servlet>

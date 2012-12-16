@@ -1,4 +1,4 @@
-package my.com.NetBilibiliRss.server.model;
+package my.com.NetBilibiliRss.shared.model;
 
 import java.util.Date;
 import java.util.List;
