@@ -197,16 +197,5 @@ public class NetBilibiliRss implements EntryPoint {
 						});
 			}
 		}
-
-		// Add a handler to send the name to the server
-		MyHandler handler = new MyHandler();
-		sendButton.addClickHandler(new ClickHandler(){
-			@Override
-			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		nameField.addKeyUpHandler(handler);
 	}
 }
