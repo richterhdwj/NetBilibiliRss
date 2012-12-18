@@ -1,6 +1,7 @@
 package my.com.NetBilibiliRss.server;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import my.com.NetBilibiliRss.shared.model.TempBilibiliRss;
 
@@ -96,6 +97,7 @@ public class MyContentHandler extends DefaultHandler {
         			tempbilibilirss.setComments(buf.toString());
         		}else if(fullName.equals(pubDate)){
         			tempbilibilirss.setPubDate(buf.toString());
+        			tempbilibilirss.setCreateDate(new Date());
         		}
         	}
         }

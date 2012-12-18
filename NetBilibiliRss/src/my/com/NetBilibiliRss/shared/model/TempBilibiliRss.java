@@ -1,5 +1,7 @@
 package my.com.NetBilibiliRss.shared.model;
 
+import java.util.Date;
+
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -30,6 +32,10 @@ public class TempBilibiliRss {
 	
 	@Persistent
 	String pubDate;
+	
+	@Persistent
+	Date createDate;
+	
 	
 	public String getTitle() {
 		return title;
@@ -66,5 +72,17 @@ public class TempBilibiliRss {
 	}
 	public void setPubDate(String pubDate) {
 		this.pubDate = pubDate;
+	}
+	public Key getKey() {
+		return key;
+	}
+	public void setKey(Key key) {
+		this.key = key;
+	}
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 }

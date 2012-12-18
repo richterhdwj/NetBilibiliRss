@@ -18,6 +18,9 @@ public class SeasonBan {
 	private NewSeasonType newSeasonType; //所属季
 	
 	@Persistent
+	private String title; //显示名称
+	
+	@Persistent
 	private List<String> name;//采用名，可以多个
 	
 	@Persistent
@@ -33,9 +36,10 @@ public class SeasonBan {
 		
 	}
 
-	public SeasonBan(NewSeasonType newSeasonType, List<String> name,
+	public SeasonBan(NewSeasonType newSeasonType,String title,List<String> name,
 			List<String> unpassName, Date createDate, String hasActive) {
 		super();
+		this.title = title;
 		this.newSeasonType = newSeasonType;
 		this.name = name;
 		this.unpassName = unpassName;
@@ -57,6 +61,14 @@ public class SeasonBan {
 
 	public void setNewSeasonType(NewSeasonType newSeasonType) {
 		this.newSeasonType = newSeasonType;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public List<String> getName() {
